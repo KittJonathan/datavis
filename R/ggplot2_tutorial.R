@@ -28,3 +28,7 @@ g + geom_line() + geom_point()
 g + geom_point(colour = "firebrick", shape = "diamond", size = 2)
 g + geom_point(colour = "#b22222", shape = "diamond", size = 2)
 g + geom_point(colour = rgb(178, 34, 34, maxColorValue = 255), shape = "diamond", size = 2)
+
+g + 
+  geom_point(colour = "firebrick", shape = "diamond", size = 2) +
+  geom_line(colour = "firebrick", linetype = "dotted", size = .3)
