@@ -14,10 +14,10 @@ ggplot(data = penguins,
   geom_point(aes(colour = species),
              size = 4,
              alpha = 0.5) +
-  geom_rug(aes(colour = species),
-           outside = TRUE,
-           sides = "tr",
-           length = unit(0.02, "npc")) +
+  # geom_rug(aes(colour = species),
+  #          outside = TRUE,
+  #          sides = "tr",
+  #          length = unit(0.02, "npc")) +
   coord_cartesian(clip = "off") +
   scale_colour_manual(values = c("Adelie" = "darkorange",
                                "Chinstrap" = "purple",
