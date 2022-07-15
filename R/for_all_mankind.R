@@ -11,6 +11,9 @@ library(showtext)
 
 font_add_google(name = "Orbitron", family = "orbitron")
 font_add_google(name = "Monoton", family = "monoton")
+font_add_google(name = "Raleway Dots", family = "raleway_dots")
+font_add_google(name = "Zen Tokyo Zoo", family = "zen_tokyo")
+font_add_google(name = "Tourney", family = "tourney")
 showtext_auto()
 
 # Create dataset ----
@@ -31,12 +34,420 @@ d1 <- tibble(
                            57, 62, 61, 52, 63, 61, 57, rep(NA, 3)),
   imdb_rating = c(7.5, 7.6, 8.0, 7.9, 8.5, 7.7, 8.0, 8.2, 8.8, 8.9,
                   7.9, 7.3, 8.0, 7.6, 7.4, 7.7, 7.7, 7.9, 8.7, 9.5, 
-                  8.5, 8.5, 8.1, 8.9, 8.3, 8.2, rep(NA, 4))
+                  8.5, 8.5, 8.1, 8.9, 8.3, 8.2, rep(NA, 4))) %>% 
+  mutate(label = paste0(episode_nb, " - ", episode_title)) 
+  
+
+# Season 1 plots ----
+
+ggplot(data = filter(d1, season == 1))
+
+ggplot(data = filter(d1, season == 1)) +
+  geom_segment(aes(x = 0, xend = 10 * imdb_rating,
+                   y = episode_nb, yend = episode_nb))
+
+ggplot(data = filter(d1, season == 1)) +
+  geom_segment(aes(x = 0, xend = 10 * imdb_rating,
+                   y = episode_nb, yend = episode_nb)) +
+  geom_point(aes(x = 10 * imdb_rating, y = episode_nb))
+
+ggplot(data = filter(d1, season == 1)) +
+  geom_segment(aes(x = 0, xend = 10 * imdb_rating,
+                   y = episode_nb, yend = episode_nb)) +
+  geom_point(aes(x = 10 * imdb_rating, y = episode_nb)) +
+  geom_text(aes(x = (10 * imdb_rating) + 2.5, y = episode_nb, label = imdb_rating))
+
+ggplot(data = filter(d1, season == 1)) +
+  geom_segment(aes(x = 0, xend = 10 * imdb_rating,
+                   y = episode_nb, yend = episode_nb)) +
+  geom_point(aes(x = 10 * imdb_rating, y = episode_nb)) +
+  geom_text(aes(x = (10 * imdb_rating) + 2.5, y = episode_nb, label = imdb_rating)) +
+  geom_rect(aes(xmin = 0, xmax = episode_duration_min,
+                ymin = episode_nb - 0.25, ymax = episode_nb + 0.25))
+
+ggplot(data = filter(d1, season == 1)) +
+  geom_segment(aes(x = 0, xend = 10 * imdb_rating,
+                   y = episode_nb, yend = episode_nb)) +
+  geom_point(aes(x = 10 * imdb_rating, y = episode_nb)) +
+  geom_text(aes(x = (10 * imdb_rating) + 2.5, y = episode_nb, label = imdb_rating)) +
+  geom_rect(aes(xmin = 0, xmax = episode_duration_min,
+                ymin = episode_nb - 0.25, ymax = episode_nb + 0.25)) +
+  geom_text(aes(x = 2.5, y = episode_nb, label = label),
+            hjust = 0)
+
+ggplot(data = filter(d1, season == 1)) +
+  geom_segment(aes(x = 0, xend = 10 * imdb_rating,
+                   y = episode_nb, yend = episode_nb)) +
+  geom_point(aes(x = 10 * imdb_rating, y = episode_nb)) +
+  geom_text(aes(x = (10 * imdb_rating) + 2.5, y = episode_nb, label = imdb_rating)) +
+  geom_rect(aes(xmin = 0, xmax = episode_duration_min,
+                ymin = episode_nb - 0.25, ymax = episode_nb + 0.25)) +
+  geom_text(aes(x = 2.5, y = episode_nb, label = label),
+            hjust = 0) +
+  geom_text(aes(x = episode_duration_min, y = episode_nb, label = paste0(episode_duration_min, " min")),
+            hjust = 1.25)
+
+ggplot(data = filter(d1, season == 1)) +
+  geom_segment(aes(x = 0, xend = 10 * imdb_rating,
+                   y = episode_nb, yend = episode_nb)) +
+  geom_point(aes(x = 10 * imdb_rating, y = episode_nb)) +
+  geom_text(aes(x = (10 * imdb_rating) + 2.5, y = episode_nb, label = imdb_rating)) +
+  geom_rect(aes(xmin = 0, xmax = episode_duration_min,
+                ymin = episode_nb - 0.25, ymax = episode_nb + 0.25)) +
+  geom_text(aes(x = 2.5, y = episode_nb, label = label),
+            hjust = 0) +
+  geom_text(aes(x = episode_duration_min, y = episode_nb, label = paste0(episode_duration_min, " min")),
+            hjust = 1.25) +
+  scale_y_reverse()
+
+ggplot(data = filter(d1, season == 1)) +
+  geom_segment(aes(x = 0, xend = 10 * imdb_rating,
+                   y = episode_nb, yend = episode_nb)) +
+  geom_point(aes(x = 10 * imdb_rating, y = episode_nb)) +
+  geom_text(aes(x = (10 * imdb_rating) + 2.5, y = episode_nb, label = imdb_rating)) +
+  geom_rect(aes(xmin = 0, xmax = episode_duration_min,
+                ymin = episode_nb - 0.25, ymax = episode_nb + 0.25)) +
+  geom_text(aes(x = 2.5, y = episode_nb, label = label),
+            hjust = 0) +
+  geom_text(aes(x = episode_duration_min, y = episode_nb, label = paste0(episode_duration_min, " min")),
+            hjust = 1.25) +
+  scale_y_reverse() +
+  annotate(geom = "text", x = -8, y = 2, label = "S") +
+  annotate(geom = "text", x = -8, y = 3, label = "E") +
+  annotate(geom = "text", x = -8, y = 4, label = "A") +
+  annotate(geom = "text", x = -8, y = 5, label = "S") +
+  annotate(geom = "text", x = -8, y = 6, label = "O") +
+  annotate(geom = "text", x = -8, y = 7, label = "N") +
+  annotate(geom = "text", x = -8, y = 9, label = "1") +
+  xlim(c(-10, 100))
+
+ggplot(data = filter(d1, season == 1)) +
+  geom_segment(aes(x = 0, xend = 10 * imdb_rating,
+                   y = episode_nb, yend = episode_nb)) +
+  geom_point(aes(x = 10 * imdb_rating, y = episode_nb)) +
+  geom_text(aes(x = (10 * imdb_rating) + 2.5, y = episode_nb, label = imdb_rating)) +
+  geom_rect(aes(xmin = 0, xmax = episode_duration_min,
+                ymin = episode_nb - 0.25, ymax = episode_nb + 0.25)) +
+  geom_text(aes(x = 2.5, y = episode_nb, label = label),
+            hjust = 0) +
+  geom_text(aes(x = episode_duration_min, y = episode_nb, label = paste0(episode_duration_min, " min")),
+            hjust = 1.25) +
+  scale_y_reverse() +
+  annotate(geom = "text", x = -8, y = 2, label = "S") +
+  annotate(geom = "text", x = -8, y = 3, label = "E") +
+  annotate(geom = "text", x = -8, y = 4, label = "A") +
+  annotate(geom = "text", x = -8, y = 5, label = "S") +
+  annotate(geom = "text", x = -8, y = 6, label = "O") +
+  annotate(geom = "text", x = -8, y = 7, label = "N") +
+  annotate(geom = "text", x = -8, y = 9, label = "1") +
+  xlim(c(-10, 100)) +
+  theme_void()
+
+ggplot(data = filter(d1, season == 1)) +
+  geom_segment(aes(x = 0, xend = 10 * imdb_rating,
+                   y = episode_nb, yend = episode_nb),
+               colour = "#a69ca2") +
+  geom_point(aes(x = 10 * imdb_rating, y = episode_nb)) +
+  geom_text(aes(x = (10 * imdb_rating) + 2.5, y = episode_nb, label = imdb_rating)) +
+  geom_rect(aes(xmin = 0, xmax = episode_duration_min,
+                ymin = episode_nb - 0.25, ymax = episode_nb + 0.25)) +
+  geom_text(aes(x = 2.5, y = episode_nb, label = label),
+            hjust = 0) +
+  geom_text(aes(x = episode_duration_min, y = episode_nb, label = paste0(episode_duration_min, " min")),
+            hjust = 1.25) +
+  scale_y_reverse() +
+  annotate(geom = "text", x = -8, y = 2, label = "S") +
+  annotate(geom = "text", x = -8, y = 3, label = "E") +
+  annotate(geom = "text", x = -8, y = 4, label = "A") +
+  annotate(geom = "text", x = -8, y = 5, label = "S") +
+  annotate(geom = "text", x = -8, y = 6, label = "O") +
+  annotate(geom = "text", x = -8, y = 7, label = "N") +
+  annotate(geom = "text", x = -8, y = 9, label = "1") +
+  xlim(c(-10, 100)) +
+  theme_void()
+
+ggplot(data = filter(d1, season == 1)) +
+  geom_segment(aes(x = 0, xend = 10 * imdb_rating,
+                   y = episode_nb, yend = episode_nb),
+               colour = "#a69ca2") +
+  geom_point(aes(x = 10 * imdb_rating, y = episode_nb),
+             colour = "#a69ca2") +
+  geom_text(aes(x = (10 * imdb_rating) + 2.5, y = episode_nb, label = imdb_rating)) +
+  geom_rect(aes(xmin = 0, xmax = episode_duration_min,
+                ymin = episode_nb - 0.25, ymax = episode_nb + 0.25)) +
+  geom_text(aes(x = 2.5, y = episode_nb, label = label),
+            hjust = 0) +
+  geom_text(aes(x = episode_duration_min, y = episode_nb, label = paste0(episode_duration_min, " min")),
+            hjust = 1.25) +
+  scale_y_reverse() +
+  annotate(geom = "text", x = -8, y = 2, label = "S") +
+  annotate(geom = "text", x = -8, y = 3, label = "E") +
+  annotate(geom = "text", x = -8, y = 4, label = "A") +
+  annotate(geom = "text", x = -8, y = 5, label = "S") +
+  annotate(geom = "text", x = -8, y = 6, label = "O") +
+  annotate(geom = "text", x = -8, y = 7, label = "N") +
+  annotate(geom = "text", x = -8, y = 9, label = "1") +
+  xlim(c(-10, 100)) +
+  theme_void()
+
+ggplot(data = filter(d1, season == 1)) +
+  geom_segment(aes(x = 0, xend = 10 * imdb_rating,
+                   y = episode_nb, yend = episode_nb),
+               colour = "#a69ca2") +
+  geom_point(aes(x = 10 * imdb_rating, y = episode_nb),
+             colour = "#a69ca2") +
+  geom_text(aes(x = (10 * imdb_rating) + 2.5, y = episode_nb, label = imdb_rating),
+            colour = "#a69ca2") +
+  geom_rect(aes(xmin = 0, xmax = episode_duration_min,
+                ymin = episode_nb - 0.25, ymax = episode_nb + 0.25)) +
+  geom_text(aes(x = 2.5, y = episode_nb, label = label),
+            hjust = 0) +
+  geom_text(aes(x = episode_duration_min, y = episode_nb, label = paste0(episode_duration_min, " min")),
+            hjust = 1.25) +
+  scale_y_reverse() +
+  annotate(geom = "text", x = -8, y = 2, label = "S") +
+  annotate(geom = "text", x = -8, y = 3, label = "E") +
+  annotate(geom = "text", x = -8, y = 4, label = "A") +
+  annotate(geom = "text", x = -8, y = 5, label = "S") +
+  annotate(geom = "text", x = -8, y = 6, label = "O") +
+  annotate(geom = "text", x = -8, y = 7, label = "N") +
+  annotate(geom = "text", x = -8, y = 9, label = "1") +
+  xlim(c(-10, 100)) +
+  theme_void()
+
+ggplot(data = filter(d1, season == 1)) +
+  geom_segment(aes(x = 0, xend = 10 * imdb_rating,
+                   y = episode_nb, yend = episode_nb),
+               colour = "#a69ca2") +
+  geom_point(aes(x = 10 * imdb_rating, y = episode_nb),
+             colour = "#a69ca2") +
+  geom_text(aes(x = (10 * imdb_rating) + 2.5, y = episode_nb, label = imdb_rating),
+            colour = "#a69ca2") +
+  geom_rect(aes(xmin = 0, xmax = episode_duration_min,
+                ymin = episode_nb - 0.25, ymax = episode_nb + 0.25),
+            fill = "#a69ca2") +
+  geom_text(aes(x = 2.5, y = episode_nb, label = label),
+            hjust = 0) +
+  geom_text(aes(x = episode_duration_min, y = episode_nb, label = paste0(episode_duration_min, " min")),
+            hjust = 1.25) +
+  scale_y_reverse() +
+  annotate(geom = "text", x = -8, y = 2, label = "S") +
+  annotate(geom = "text", x = -8, y = 3, label = "E") +
+  annotate(geom = "text", x = -8, y = 4, label = "A") +
+  annotate(geom = "text", x = -8, y = 5, label = "S") +
+  annotate(geom = "text", x = -8, y = 6, label = "O") +
+  annotate(geom = "text", x = -8, y = 7, label = "N") +
+  annotate(geom = "text", x = -8, y = 9, label = "1") +
+  xlim(c(-10, 100)) +
+  theme_void()
+
+ggplot(data = filter(d1, season == 1)) +
+  geom_segment(aes(x = 0, xend = 10 * imdb_rating,
+                   y = episode_nb, yend = episode_nb),
+               colour = "#a69ca2") +
+  geom_point(aes(x = 10 * imdb_rating, y = episode_nb),
+             colour = "#a69ca2") +
+  geom_text(aes(x = (10 * imdb_rating) + 2.5, y = episode_nb, label = imdb_rating),
+            colour = "#a69ca2") +
+  geom_rect(aes(xmin = 0, xmax = episode_duration_min,
+                ymin = episode_nb - 0.25, ymax = episode_nb + 0.25),
+            fill = "#a69ca2") +
+  geom_text(aes(x = 2.5, y = episode_nb, label = label),
+            hjust = 0) +
+  geom_text(aes(x = episode_duration_min, y = episode_nb, label = paste0(episode_duration_min, " min")),
+            hjust = 1.25) +
+  scale_y_reverse() +
+  annotate(geom = "text", x = -8, y = 2, label = "S", colour = "#a69ca2") +
+  annotate(geom = "text", x = -8, y = 3, label = "E", colour = "#a69ca2") +
+  annotate(geom = "text", x = -8, y = 4, label = "A", colour = "#a69ca2") +
+  annotate(geom = "text", x = -8, y = 5, label = "S", colour = "#a69ca2") +
+  annotate(geom = "text", x = -8, y = 6, label = "O", colour = "#a69ca2") +
+  annotate(geom = "text", x = -8, y = 7, label = "N", colour = "#a69ca2") +
+  annotate(geom = "text", x = -8, y = 9, label = "1", colour = "#a69ca2") +
+  xlim(c(-10, 100)) +
+  theme_void()
+
+ggplot(data = filter(d1, season == 1)) +
+  geom_segment(aes(x = 0, xend = 10 * imdb_rating,
+                   y = episode_nb, yend = episode_nb),
+               colour = "#a69ca2") +
+  geom_point(aes(x = 10 * imdb_rating, y = episode_nb),
+             colour = "#a69ca2") +
+  geom_text(aes(x = (10 * imdb_rating) + 2.5, y = episode_nb, label = imdb_rating),
+            colour = "#a69ca2") +
+  geom_rect(aes(xmin = 0, xmax = episode_duration_min,
+                ymin = episode_nb - 0.25, ymax = episode_nb + 0.25),
+            fill = "#a69ca2") +
+  geom_text(aes(x = 2.5, y = episode_nb, label = label),
+            hjust = 0) +
+  geom_text(aes(x = episode_duration_min, y = episode_nb, label = paste0(episode_duration_min, " min")),
+            hjust = 1.25) +
+  scale_y_reverse() +
+  annotate(geom = "text", x = -8, y = 2, label = "S", colour = "#a69ca2") +
+  annotate(geom = "text", x = -8, y = 3, label = "E", colour = "#a69ca2") +
+  annotate(geom = "text", x = -8, y = 4, label = "A", colour = "#a69ca2") +
+  annotate(geom = "text", x = -8, y = 5, label = "S", colour = "#a69ca2") +
+  annotate(geom = "text", x = -8, y = 6, label = "O", colour = "#a69ca2") +
+  annotate(geom = "text", x = -8, y = 7, label = "N", colour = "#a69ca2") +
+  annotate(geom = "text", x = -8, y = 9, label = "1", colour = "#a69ca2") +
+  xlim(c(-10, 100)) +
+  theme_void() +
+  theme(panel.background = element_rect(fill = "#0d0d0d"),
+        plot.background = element_rect(fill = "#0d0d0d"))
+
+(s1 <- ggplot(data = filter(d1, season == 1)) +
+  geom_segment(aes(x = 0, xend = 10 * imdb_rating,
+                   y = episode_nb, yend = episode_nb)) +
+  geom_point(aes(x = 10 * imdb_rating, y = episode_nb)) +
+  geom_text(aes(x = (10 * imdb_rating) + 2.5, y = episode_nb, label = imdb_rating)) +
+  geom_rect(aes(xmin = 0, xmax = episode_duration_min,
+                ymin = episode_nb - 0.25, ymax = episode_nb + 0.25)) +
+  geom_text(aes(x = 2.5, y = episode_nb, label = label),
+            hjust = 0) +
+  geom_text(aes(x = episode_duration_min + 0.25, y = episode_nb - 0.15, label = paste0(episode_duration_min, " min")),
+            hjust = 0) +
+  scale_y_reverse() +
+  annotate(geom = "text", x = -8, y = 2, label = "S") +
+  annotate(geom = "text", x = -8, y = 3, label = "E") +
+  annotate(geom = "text", x = -8, y = 4, label = "A") +
+  annotate(geom = "text", x = -8, y = 5, label = "S") +
+  annotate(geom = "text", x = -8, y = 6, label = "O") +
+  annotate(geom = "text", x = -8, y = 7, label = "N") +
+  annotate(geom = "text", x = -8, y = 9, label = "1") +
+  theme_void() +
+  xlim(c(-10, 95))
 )
 
-# Plot ----
+(s2 <- ggplot(data = filter(d1, season == 2)) +
+    geom_segment(aes(x = 0, xend = 10 * imdb_rating,
+                     y = episode_nb, yend = episode_nb)) +
+    geom_point(aes(x = 10 * imdb_rating, y = episode_nb)) +
+    geom_text(aes(x = (10 * imdb_rating) + 2.5, y = episode_nb, label = imdb_rating)) +
+    geom_rect(aes(xmin = 0, xmax = episode_duration_min,
+                  ymin = episode_nb - 0.25, ymax = episode_nb + 0.25)) +
+    geom_text(aes(x = 2.5, y = episode_nb, label = label),
+              hjust = 0) +
+    geom_text(aes(x = episode_duration_min + 0.25, y = episode_nb - 0.15, label = paste0(episode_duration_min, " min")),
+              hjust = 0) +
+    scale_y_reverse() +
+    annotate(geom = "text", x = -8, y = 2, label = "S") +
+    annotate(geom = "text", x = -8, y = 3, label = "E") +
+    annotate(geom = "text", x = -8, y = 4, label = "A") +
+    annotate(geom = "text", x = -8, y = 5, label = "S") +
+    annotate(geom = "text", x = -8, y = 6, label = "O") +
+    annotate(geom = "text", x = -8, y = 7, label = "N") +
+    annotate(geom = "text", x = -8, y = 9, label = "2") +
+    theme_void() +
+    xlim(c(-10, 95))
+)
 
-# https://www.ascistance.co.uk/blog/network/hello-world/
+
+##############################################################################
+
+ggplot(data = filter(d1, season == 1)) +
+  geom_rect(aes(xmin = 0, xmax = episode_duration_min,
+                ymin = episode_nb - 0.25, ymax = episode_nb + 0.25))
+
+ggplot(data = filter(d1, season == 1)) +
+  geom_rect(aes(xmin = 0, xmax = episode_duration_min / 1.5 ,
+                ymin = episode_nb - 0.25, ymax = episode_nb + 0.25)) +
+  geom_text(aes(x = 0.5, y = episode_nb, label = label),
+            hjust = 0) +
+  geom_vline(aes(xintercept = mean(10*imdb_rating, na.rm = TRUE))) +
+  geom_segment(aes(x = mean(10*imdb_rating), xend = 10*imdb_rating,
+                   y = episode_nb, yend = episode_nb))
+
+
+
+ggplot(data = filter(d1, season == 1)) +
+  geom_segment(aes(x = 0, xend = 20*imdb_rating,
+                   y = episode_nb, yend = episode_nb))
+
+ggplot(data = filter(d1, season == 1)) +
+  geom_segment(aes(x = 0, xend = 20*imdb_rating,
+                   y = episode_nb, yend = episode_nb)) +
+  geom_point(aes(x = 20*imdb_rating, y = episode_nb),
+             size = 15)
+
+ggplot(data = filter(d1, season == 1)) +
+  geom_segment(aes(x = mean(15*imdb_rating, na.rm = TRUE), xend = 15*imdb_rating,
+                   y = episode_nb, yend = episode_nb)) +
+  geom_vline(aes(xintercept = mean(15*imdb_rating, na.rm = TRUE))) +
+  geom_point(aes(x = 15*imdb_rating, y = episode_nb),
+             size = 15) +
+  geom_rect(aes(xmin = 0, xmax = episode_duration_min,
+                ymin = episode_nb - 0.35, ymax = episode_nb + 0.35))
+
+
+
+(s1p1 <- ggplot(data = filter(d1, season == 1)) +
+   geom_rect(mapping = aes(xmin = 0, xmax = episode_duration_min,
+                           ymin = episode_nb - 0.35, ymax = episode_nb + 0.35),
+             fill = "#a69ca2", alpha = 1) +
+   geom_text(mapping = aes(x = 2.5, y = episode_nb,
+                           label = label),
+             family = "orbitron", hjust = 0, colour = "#0d0d0d", size = 10) +
+   geom_text(mapping = aes(x = episode_duration_min + 1, y = episode_nb,
+                           label = paste0(episode_duration_min, " min")),
+             family = "orbitron", hjust = 0, colour = "#a69ca2", size = 10) +
+   geom_segment(mapping = aes(x = 0,  xend = 20*imdb_rating, y = episode_nb, yend = episode_nb),
+                colour = "#a69ca2") +
+   geom_point(mapping = aes(x = 20*imdb_rating, y = episode_nb), size = 15, colour = "#a69ca2") +
+   annotate(geom = "text", x = 85, y = 5.5, label = "SEASON 1", family = "tourney", colour = "#a69ca2", size = 50, alpha = 0.75) +
+   xlim(c(0, 200)) +
+   scale_y_reverse() +
+   # theme_void() +
+   theme(panel.background = element_rect(fill = "#0d0d0d"),
+         plot.background = element_rect(fill = "#0d0d0d"))
+)
+
+ggsave("figs/famk01.png", s1p1, dpi = 320, width = 12, height = 6)
+
+(s1p2 <- ggplot(data = filter(d1, season == 1)) +
+    # geom_vline(aes(xintercept = mean(imdb_rating, na.rm = TRUE)),
+    #            colour = "#a69ca2", linetype = "dotted") +
+    geom_segment(aes(x = mean(imdb_rating, na.rm = TRUE),
+                     xend = imdb_rating,
+                     y = episode_nb - 0.35, 
+                     yend = episode_nb - 0.35),
+                 colour = "#a69ca2") +
+    # geom_point(aes(x = imdb_rating, y = episode_nb),
+    #            size = 12, colour = "#a69ca2") +
+    # geom_text(aes(x = imdb_rating, y = episode_nb, label = imdb_rating),
+    #           family = "orbitron", size = 12) +
+    # xlim(c(7, 10)) +
+    # ylim(c(0, 15)) +
+    scale_y_reverse() +
+    # theme_void() +
+    theme(panel.background = element_rect(fill = "#0d0d0d"),
+          plot.background = element_rect(fill = "#0d0d0d"))
+)
+
+ggsave("figs/famk02.png", s1p2, dpi = 320, width = 12, height = 6)
+
+p <- s1p1 + s1p2
+
+ggsave("figs/famk.png", p, dpi = 320, width = 12, height = 6)
+
+(p2 <- ggplot(data = s2) +
+    geom_point(aes(x = imdb_rating,
+                   y = label)) +
+    geom_vline(aes(xintercept = mean(imdb_rating))) +
+    geom_segment(aes(x = mean(imdb_rating), xend = imdb_rating,
+                     y = label, yend = label)) +
+    xlim(c(7, 10)) +
+    theme(axis.text.y = element_text(hjust = 0)) +
+    theme(panel.background = element_rect(fill = "#0d0d0d"),
+          plot.background = element_rect(fill = "#0d0d0d"))
+)
+
+ggsave("figs/famk02.png", s1p2, dpi = 320, width = 12, height = 6)
+
+
+
+ggsave("figs/famk01.png", s1p1, dpi = 320, width = 12, height = 6)
+
+
 
 s1 <- d1 %>%
   filter(season == 1) %>% 
