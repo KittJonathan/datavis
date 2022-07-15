@@ -4,7 +4,7 @@
 # Load packages ----
 
 library(tidyverse)
-library(ggnewscale)
+library(patchwork)
 
 # Create dataset ----
 
@@ -35,12 +35,46 @@ s1 <- d1 %>%
   filter(season == 1) %>% 
   mutate(label = paste0(episode_nb, " - ", episode_title)) %>% 
   mutate(label = fct_rev(fct_inorder(label)))
+
+s2 <- d1 %>%
+  filter(season == 2) %>% 
+  mutate(label = paste0(episode_nb, " - ", episode_title)) %>% 
+  mutate(label = fct_rev(fct_inorder(label)))
+
+s3 <- d1 %>%
+  filter(season == 3) %>% 
+  mutate(label = paste0(episode_nb, " - ", episode_title)) %>% 
+  mutate(label = fct_rev(fct_inorder(label)))
   
 
-ggplot(data = s1) +
+(p1 <- ggplot(data = s1) +
   geom_point(aes(x = imdb_rating,
                  y = label)) +
-  theme(axis.text.y = element_text(hjust = 0))
+  geom_vline(aes(xintercept = mean(imdb_rating))) +
+  geom_segment(aes(x = mean(imdb_rating), xend = imdb_rating,
+                   y = label, yend = label)) +
+  xlim(c(7, 10)) +
+  theme(axis.text.y = element_text(hjust = 0)))
+
+(p2 <- ggplot(data = s2) +
+    geom_point(aes(x = imdb_rating,
+                   y = label)) +
+    geom_vline(aes(xintercept = mean(imdb_rating))) +
+    geom_segment(aes(x = mean(imdb_rating), xend = imdb_rating,
+                     y = label, yend = label)) +
+    xlim(c(7, 10)) +
+    theme(axis.text.y = element_text(hjust = 0)))
+
+(p3 <- ggplot(data = s3) +
+    geom_point(aes(x = imdb_rating,
+                   y = label)) +
+    geom_vline(aes(xintercept = mean(imdb_rating, na.rm = TRUE))) +
+    geom_segment(aes(x = mean(imdb_rating, na.rm = TRUE), xend = imdb_rating,
+                     y = label, yend = label)) +
+    xlim(c(7, 10)) +
+    theme(axis.text.y = element_text(hjust = 0)))
+
+p1 / p2 / p3
 
 
 
