@@ -10,6 +10,7 @@ library(showtext)
 # Import fonts ----
 
 font_add_google(name = "Orbitron", family = "orbitron")
+font_add_google(name = "Monoton", family = "monoton")
 showtext_auto()
 
 # Create dataset ----
@@ -40,18 +41,79 @@ d1 <- tibble(
 s1 <- d1 %>%
   filter(season == 1) %>% 
   mutate(label = paste0(episode_nb, " - ", episode_title)) %>% 
-  mutate(label = fct_rev(fct_inorder(label))) %>% 
-  mutate(duration_length = )
+  mutate(label = fct_rev(fct_inorder(label)))
 
 s2 <- d1 %>%
-  filter(season == 2) %>% 
-  mutate(label = paste0(episode_nb, " - ", episode_title)) %>% 
+  filter(season == 2) %>%
+  mutate(label = paste0(episode_nb, " - ", episode_title)) %>%
   mutate(label = fct_rev(fct_inorder(label)))
 
 s3 <- d1 %>%
-  filter(season == 3) %>% 
-  mutate(label = paste0(episode_nb, " - ", episode_title)) %>% 
+  filter(season == 3) %>%
+  mutate(label = paste0(episode_nb, " - ", episode_title)) %>%
   mutate(label = fct_rev(fct_inorder(label)))
+
+(p1 <- ggplot(data = s1) +
+  geom_text(mapping = aes(x = 2.5, y = episode_nb,
+                          label = label),
+            family = "orbitron", hjust = 0, colour = "white", size = 10) +
+  geom_rect(mapping = aes(xmin = 0, xmax = episode_duration_min,
+                          ymin = episode_nb - 0.35, ymax = episode_nb + 0.35),
+            fill = "#a69ca2", alpha = 0.5) +
+  geom_text(mapping = aes(x = episode_duration_min + 1, y = episode_nb,
+                          label = paste0(episode_duration_min, " min")),
+            family = "orbitron", hjust = 0, colour = "white", size = 10) +
+  annotate(geom = "text", x = 85, y = 5.5, label = "SEASON     1", family = "monoton", colour = "#a69ca2", size = 35, alpha = 0.75) +
+  scale_y_reverse() +
+  xlim(c(0, 100)) +
+  theme_void() +
+  theme(panel.background = element_rect(fill = "#0d0d0d"),
+        plot.background = element_rect(fill = "#0d0d0d"))
+)
+
+ggsave("figs/famk01.png", p1, dpi = 320, width = 12, height = 6)
+
+(p2 <- ggplot(data = s2) +
+  geom_text(mapping = aes(x = 2.5, y = episode_nb,
+                          label = label),
+            family = "orbitron", hjust = 0, colour = "white", size = 15) +
+  geom_rect(mapping = aes(xmin = 0, xmax = episode_duration_min,
+                          ymin = episode_nb - 0.25, ymax = episode_nb + 0.25),
+            fill = "#d5f2f2", alpha = 0.5) +
+  geom_text(mapping = aes(x = episode_duration_min + 1, y = episode_nb,
+                          label = paste0(episode_duration_min, " min")),
+            family = "orbitron", hjust = 0, colour = "white", size = 15) +
+  annotate(geom = "text", x = 85, y = 5.5, label = "SEASON     2", family = "monoton", colour = "#d5f2f2", size = 35, alpha = 0.75) +
+  scale_y_reverse() +
+  xlim(c(0, 100)) +
+  theme_void() +
+  theme(panel.background = element_rect(fill = "#30588c"),
+        plot.background = element_rect(fill = "#30588c"))
+)
+
+(p3 <- ggplot(data = s3) +
+    geom_text(mapping = aes(x = 2.5, y = episode_nb,
+                            label = label),
+              family = "orbitron", hjust = 0, colour = "white", size = 15) +
+    geom_rect(mapping = aes(xmin = 0, xmax = episode_duration_min,
+                            ymin = episode_nb - 0.25, ymax = episode_nb + 0.25),
+              fill = "#f2bd1d", alpha = 1) +
+    geom_text(mapping = aes(x = episode_duration_min + 1, y = episode_nb,
+                            label = paste0(episode_duration_min, " min")),
+              family = "orbitron", hjust = 0, colour = "white", size = 15) +
+    annotate(geom = "text", x = 85, y = 5.5, label = "SEASON     3", family = "monoton", colour = "#f2bd1d", size = 35, alpha = 0.75) +
+    scale_y_reverse() +
+    xlim(c(0, 100)) +
+    theme_void() +
+    theme(panel.background = element_rect(fill = "#bf5111"),
+          plot.background = element_rect(fill = "#bf5111"))
+)
+
+ggsave("figs/famk02.png", p2, dpi = 320, width = 12, height = 6)
+
+p <- p1 / p2 / p3
+
+ggsave("figs/famk.png", p, dpi = 320, width = 12, height = 6)
   
 
 (p1 <- ggplot(data = s1) +
