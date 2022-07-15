@@ -5,6 +5,12 @@
 
 library(tidyverse)
 library(patchwork)
+library(showtext)
+
+# Import fonts ----
+
+font_add_google(name = "Orbitron", family = "orbitron")
+showtext_auto()
 
 # Create dataset ----
 
@@ -34,7 +40,8 @@ d1 <- tibble(
 s1 <- d1 %>%
   filter(season == 1) %>% 
   mutate(label = paste0(episode_nb, " - ", episode_title)) %>% 
-  mutate(label = fct_rev(fct_inorder(label)))
+  mutate(label = fct_rev(fct_inorder(label))) %>% 
+  mutate(duration_length = )
 
 s2 <- d1 %>%
   filter(season == 2) %>% 
@@ -48,13 +55,25 @@ s3 <- d1 %>%
   
 
 (p1 <- ggplot(data = s1) +
-  geom_point(aes(x = imdb_rating,
-                 y = label)) +
   geom_vline(aes(xintercept = mean(imdb_rating))) +
   geom_segment(aes(x = mean(imdb_rating), xend = imdb_rating,
-                   y = label, yend = label)) +
+                     y = label, yend = label)) +
+  geom_rect(aes(xmin = 7, xmax = 10,
+                ymin = as.numeric(label) - 0.25,
+                ymax = as.numeric(label) + 0.25),
+            alpha = 0.15) +
+    geom_point(aes(x = imdb_rating,
+                   y = label),
+               shape = 21,
+               size = 12,
+               fill = "white") +
+    geom_text(aes(x = imdb_rating, y = label, label = imdb_rating),
+              family = "orbitron") +
   xlim(c(7, 10)) +
-  theme(axis.text.y = element_text(hjust = 0)))
+  theme(axis.title.y = element_blank(),
+        axis.ticks = element_blank(),
+        axis.text.y = element_text(family = "orbitron",
+                                   hjust = 0)))
 
 (p2 <- ggplot(data = s2) +
     geom_point(aes(x = imdb_rating,
