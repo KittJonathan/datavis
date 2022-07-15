@@ -31,13 +31,27 @@ d1 <- tibble(
 
 # https://www.ascistance.co.uk/blog/network/hello-world/
 
-s1 <- d1 %>% filter(season == 1)
+s1 <- d1 %>%
+  filter(season == 1) %>% 
+  mutate(label = paste0(episode_nb, " - ", episode_title)) %>% 
+  mutate(label = fct_rev(fct_inorder(label)))
+  
+
+ggplot(data = s1) +
+  geom_point(aes(x = imdb_rating,
+                 y = label)) +
+  theme(axis.text.y = element_text(hjust = 0))
+
+
+
 
 ggplot(data = s1) +
   geom_line(aes(y = episode_nb,
                 x = imdb_rating)) +
-  geom_text(aes(x = 5, y = episode_nb, label = episode_title),
-            hjust = 0)
+  geom_text(aes(x = 5, y = episode_nb,
+                label = paste0(episode_nb, ". ", episode_title)),
+            hjust = 0) +
+  scale_y_reverse()
 
 ggplot(data = d1) +
   geom_line(aes(x = index,
