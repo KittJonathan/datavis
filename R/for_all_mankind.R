@@ -22,11 +22,20 @@ library(ggforce)
 
 ggplot() +
   geom_circle(aes(x0 = -75, y0 = 0, r = 25)) +
-  geom_circle(aes(x0 = 100, y0 = 0, r = 25)) +
-  geom_segment(aes(x = 0, xend = 50, y = seq(-45, 45, 10), yend = seq(-45, 45, 10))) +
+  geom_circle(aes(x0 = 200, y0 = 0, r = 10)) +
+  geom_segment(data = s1,
+               aes(x = 0, xend = 20*imdb_rating,
+                   y = rev(seq(-45, 45, 10)), yend = rev(seq(-45, 45, 10)))) +
+  # geom_segment(aes(x = 0, xend = 50, y = seq(-45, 45, 10), yend = seq(-45, 45, 10))) +
   geom_segment(aes(x = -50, xend = 0, y = 0, yend = seq(-45, 45, 10))) +
+  geom_point(data = s1,
+             aes(x = 20*imdb_rating, y = rev(seq(-46, 46, 10))),
+             size = 5) +
   geom_text(data = s1, aes(x = 0, y = rev(seq(-45, 45, 10)), label = label),
             hjust = 0, vjust = -0.5) +
+  # geom_rect(data = s1,
+  #           aes(xmin = 0, xmax = episode_duration_min,
+  #               ymin = rev(seq(-45, 45, 10)), ymax = rev(seq(-45, 45, 10)))) +
   # annotate(geom = "text", x = 0, y = 42, label = s1$label[1], hjust = 0, size = 3) +
   # annotate(geom = "text", x = 0, y = 34, label = s1$label[2], hjust = 0, size = 3) +
   # annotate(geom = "text", x = 0, y = 26, label = s1$label[3], hjust = 0, size = 3) +
@@ -51,7 +60,7 @@ ggplot() +
   # geom_arc(aes(x0 = 15, y0 = 15, r = 11, start = 0, end = 3)) +
   # geom_arc(aes(x0 = 15, y0 = 15, r = 12, start = 0, end = 3)) +
   # geom_arc(aes(x0 = 15, y0 = 15, r = 13, start = 0, end = 3)) +
-  xlim(c(-100, 100)) +
+  xlim(c(-100, 225)) +
   ylim(c(-50, 50)) +
   coord_fixed()
 
