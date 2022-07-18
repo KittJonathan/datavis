@@ -35,7 +35,8 @@ ggplot() +
             hjust = 0, vjust = -0.5) +
   geom_rect(data = s1,
             aes(xmin = 0, xmax = episode_duration_min,
-                ymin = rev(seq(-45, 45, 10)), ymax = rev(seq(-45, 45, 10)))) +
+                ymin = rev(seq(-47, 43, 10)),
+                ymax = rev(seq(-43, 47, 10)))) +
   # annotate(geom = "text", x = 0, y = 42, label = s1$label[1], hjust = 0, size = 3) +
   # annotate(geom = "text", x = 0, y = 34, label = s1$label[2], hjust = 0, size = 3) +
   # annotate(geom = "text", x = 0, y = 26, label = s1$label[3], hjust = 0, size = 3) +
