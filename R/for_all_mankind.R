@@ -44,7 +44,7 @@ s1 <- d1 %>%
 
 library(ggforce)
 
-ggplot() +
+p <- ggplot() +
   geom_circle(aes(x0 = -75, y0 = 0, r = 25),
               fill = "#d5f2f2", colour = NA) +
   geom_circle(aes(x0= 175, y0 = 0, r = 15),
@@ -60,14 +60,20 @@ ggplot() +
                arrow = arrow(length = unit(0.25, "cm"), type = "closed")) +
   geom_rect(data = s1,
             aes(xmin = 0, xmax = episode_duration_min,
-                ymin = rev(seq(-47, 43, 10)),
-                ymax = rev(seq(-43, 47, 10))),
+                ymin = rev(seq(-48, 42, 10)),
+                ymax = rev(seq(-42, 48, 10))),
             fill = "#a69ca2") +
+  geom_text(data = s1,
+            aes(x = 2, y = rev(seq(-45, 45, 10)),
+                label = label),
+            hjust = 0, family = "orbitron", size = 10) +
   coord_fixed() +
   xlim(-100, 200) +
   ylim(-50, 50) +
   theme_void() +
   theme(panel.background = element_rect(fill = "#0d0d0d"))
+
+ggsave("figs/test.png", p, dpi = 320, width = 12, height = 6)
 
 fill = "#d5f2f2", alpha = 0.5) +
   geom_text(mapping = aes(x = episode_duration_min + 1, y = episode_nb,
