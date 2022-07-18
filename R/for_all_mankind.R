@@ -23,6 +23,8 @@ library(ggforce)
 ggplot() +
   geom_circle(aes(x0 = -75, y0 = 0, r = 25),
               fill = "#d5f2f2", colour = NA, size = 2) +
+  geom_circle(aes(x0= 175, y0 = 0, r = 15),
+              fill = "grey") +
   coord_fixed() +
   xlim(-100, 200) +
   ylim(-50, 50) +
