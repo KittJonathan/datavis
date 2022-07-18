@@ -16,18 +16,56 @@ font_add_google(name = "Zen Tokyo Zoo", family = "zen_tokyo")
 font_add_google(name = "Tourney", family = "tourney")
 showtext_auto()
 
+# Create dataset ----
+
+# https://www.imdb.com/title/tt7772588/episodes
+
+d1 <- tibble(
+  season = rep(1:3, each = 10),
+  episode_nb = rep(1:10, times = 3),
+  episode_title = c("Red Moon", "He Built the Saturn V", "Nixon's Women", "Prime Crew", "Into the Abyss",
+                    "Home Again", "Hi Bob", "Rupture", "Bent Bird", "A City Upon a Hill",
+                    "Every Little Thing", "The Bleeding Edge", "Rules of Engagement", "Pathfinder", "The Weight", 
+                    "Best-Laid Plans", "Don't be Cruel", "And Here's to You", "Triage", "The Grey",
+                    "Polaris", "Game Changer", "All In", "Happy Valley", "Seven Minutes of Terror", "New Eden",
+                    "Bring It Down", "The Sands of Ares", "Coming Home", "Stranger in a Strange Land"),
+  episode_duration_min = c(65, 62, 62, 63, 62, 62, 59, 57, 48, 76,
+                           76, 56, 60, 60, 58, 59, 62, 69, 56, 76,
+                           57, 62, 61, 52, 63, 61, 57, rep(NA, 3)),
+  imdb_rating = c(7.5, 7.6, 8.0, 7.9, 8.5, 7.7, 8.0, 8.2, 8.8, 8.9,
+                  7.9, 7.3, 8.0, 7.6, 7.4, 7.7, 7.7, 7.9, 8.7, 9.5, 
+                  8.5, 8.5, 8.1, 8.9, 8.2, 6.9, rep(NA, 4))) %>% 
+  mutate(label = paste0(episode_nb, " - ", episode_title)) 
+
+s1 <- d1 %>% 
+  filter(season == 1)
+
 # Tests ----
 
 library(ggforce)
 
 ggplot() +
   geom_circle(aes(x0 = -75, y0 = 0, r = 25),
-              fill = "#d5f2f2", colour = NA, size = 2) +
+              fill = "#d5f2f2", colour = NA) +
   geom_circle(aes(x0= 175, y0 = 0, r = 15),
-              fill = "grey") +
+              fill = "#a69ca2", colour = NA) +
+  geom_segment(data = s1,
+               aes(x = -50, xend = 0,
+                   y = 0, yend = seq(-45, 45, 10)),
+               colour = "#a69ca2") +
+  geom_segment(data = s1,
+               aes(x = 0, xend = 15 * imdb_rating,
+                   y = rev(seq(-45, 45, 10)), yend = rev(seq(-45, 45, 10))),
+               colour = "#a69ca2",
+               arrow = arrow(length = unit(0.25, "cm"), type = "closed")) +
+  # geom_point(data = s1,
+  #            aes(x = 15 * imdb_rating,
+  #                y = rev(seq(-45, 45, 10))),
+  #            size = 8, colour = "#a69ca2") +
   coord_fixed() +
   xlim(-100, 200) +
   ylim(-50, 50) +
+  theme_void() +
   theme(panel.background = element_rect(fill = "#0d0d0d"))
 
 fill = "#d5f2f2", alpha = 0.5) +
@@ -101,27 +139,6 @@ p <- ggplot() + theme_no_axes() + coord_fixed()
 p + geom_arc(aes(x0 = 0, y0 = 0, r = r, start = start, end = end, 
                  alpha = ..index.., colour = factor(r)), data = arcs)
 
-# Create dataset ----
-
-# https://www.imdb.com/title/tt7772588/episodes
-
-d1 <- tibble(
-  season = rep(1:3, each = 10),
-  episode_nb = rep(1:10, times = 3),
-  episode_title = c("Red Moon", "He Built the Saturn V", "Nixon's Women", "Prime Crew", "Into the Abyss",
-                    "Home Again", "Hi Bob", "Rupture", "Bent Bird", "A City Upon a Hill",
-                    "Every Little Thing", "The Bleeding Edge", "Rules of Engagement", "Pathfinder", "The Weight", 
-                    "Best-Laid Plans", "Don't be Cruel", "And Here's to You", "Triage", "The Grey",
-                    "Polaris", "Game Changer", "All In", "Happy Valley", "Seven Minutes of Terror", "New Eden",
-                    "Bring It Down", "The Sands of Ares", "Coming Home", "Stranger in a Strange Land"),
-  episode_duration_min = c(65, 62, 62, 63, 62, 62, 59, 57, 48, 76,
-                           76, 56, 60, 60, 58, 59, 62, 69, 56, 76,
-                           57, 62, 61, 52, 63, 61, 57, rep(NA, 3)),
-  imdb_rating = c(7.5, 7.6, 8.0, 7.9, 8.5, 7.7, 8.0, 8.2, 8.8, 8.9,
-                  7.9, 7.3, 8.0, 7.6, 7.4, 7.7, 7.7, 7.9, 8.7, 9.5, 
-                  8.5, 8.5, 8.1, 8.9, 8.2, 6.9, rep(NA, 4))) %>% 
-  mutate(label = paste0(episode_nb, " - ", episode_title)) 
-  
 
 # Season 1 plots ----
 
