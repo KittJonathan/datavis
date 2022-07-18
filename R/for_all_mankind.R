@@ -21,10 +21,10 @@ showtext_auto()
 library(ggforce)
 
 ggplot() +
-  geom_circle(aes(x0 = 100, y0 = 25, r = 25)) +
-  geom_segment(aes(x = 0, xend = 50, y = seq(5, 45, 4), yend = seq(5, 45, 4))) +
-  geom_segment(aes(x = -25, xend = 0, y = 25, yend = seq(5, 45, 4)),
-               size = 1) +
+  geom_circle(aes(x0 = -75, y0 = 0, r = 25)) +
+  geom_circle(aes(x0 = 100, y0 = 0, r = 25)) +
+  geom_segment(aes(x = 0, xend = 50, y = seq(-40, 40, 8), yend = seq(-40, 40, 8))) +
+  geom_segment(aes(x = -50, xend = 0, y = 0, yend = seq(-40, 40, 8))) +
   # geom_arc(aes(x0 = 0, y0 = 45, r = 5, start = -150, end = 0)) +
   # geom_segment(aes(x = 0, xend = 5, y = 0, yend = 5)) +
   # geom_arc(aes(x0 = 15, y0 = 15, r = 4, start = 0, end = 2)) +
@@ -37,7 +37,7 @@ ggplot() +
   # geom_arc(aes(x0 = 15, y0 = 15, r = 12, start = 0, end = 3)) +
   # geom_arc(aes(x0 = 15, y0 = 15, r = 13, start = 0, end = 3)) +
   xlim(c(-100, 100)) +
-  ylim(c(0, 50)) +
+  ylim(c(-50, 50)) +
   coord_fixed()
 
 p + p
