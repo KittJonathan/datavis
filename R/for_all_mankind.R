@@ -23,8 +23,23 @@ library(ggforce)
 ggplot() +
   geom_circle(aes(x0 = -75, y0 = 0, r = 25)) +
   geom_circle(aes(x0 = 100, y0 = 0, r = 25)) +
-  geom_segment(aes(x = 0, xend = 50, y = seq(-40, 40, 8), yend = seq(-40, 40, 8))) +
-  geom_segment(aes(x = -50, xend = 0, y = 0, yend = seq(-40, 40, 8))) +
+  geom_segment(aes(x = 0, xend = 50, y = seq(-45, 45, 10), yend = seq(-45, 45, 10))) +
+  geom_segment(aes(x = -50, xend = 0, y = 0, yend = seq(-45, 45, 10))) +
+  geom_text(data = s1, aes(x = 0, y = rev(seq(-45, 45, 10)), label = label),
+            hjust = 0, vjust = -0.5) +
+  # annotate(geom = "text", x = 0, y = 42, label = s1$label[1], hjust = 0, size = 3) +
+  # annotate(geom = "text", x = 0, y = 34, label = s1$label[2], hjust = 0, size = 3) +
+  # annotate(geom = "text", x = 0, y = 26, label = s1$label[3], hjust = 0, size = 3) +
+  # annotate(geom = "text", x = 0, y = 18, label = s1$label[4], hjust = 0, size = 3) +
+  # annotate(geom = "text", x = 0, y = 10, label = s1$label[5], hjust = 0, size = 3) +
+  # annotate(geom = "text", x = 0, y = 2, label = s1$label[6], hjust = 0, size = 3) +
+  # annotate(geom = "text", x = 0, y = -6, label = s1$label[7], hjust = 0, size = 3) +
+  # annotate(geom = "text", x = 0, y = -14, label = s1$label[8], hjust = 0, size = 3) +
+  # annotate(geom = "text", x = 0, y = -22, label = s1$label[9], hjust = 0, size = 3) +
+  # annotate(geom = "text", x = 0, y = -30, label = s1$label[10], hjust = 0, size = 3) +
+  # geom_text(data = s1,
+  #           aes(x = 0, y = seq(40, -40, 8), label = label),
+  #           size = 10) +
   # geom_arc(aes(x0 = 0, y0 = 45, r = 5, start = -150, end = 0)) +
   # geom_segment(aes(x = 0, xend = 5, y = 0, yend = 5)) +
   # geom_arc(aes(x0 = 15, y0 = 15, r = 4, start = 0, end = 2)) +
@@ -39,6 +54,8 @@ ggplot() +
   xlim(c(-100, 100)) +
   ylim(c(-50, 50)) +
   coord_fixed()
+
+ggsave("figs/test.png", p, dpi = 320, width = 12, height = 6)
 
 p + p
 
