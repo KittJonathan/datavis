@@ -58,10 +58,11 @@ ggplot() +
                    y = rev(seq(-45, 45, 10)), yend = rev(seq(-45, 45, 10))),
                colour = "#a69ca2",
                arrow = arrow(length = unit(0.25, "cm"), type = "closed")) +
-  # geom_point(data = s1,
-  #            aes(x = 15 * imdb_rating,
-  #                y = rev(seq(-45, 45, 10))),
-  #            size = 8, colour = "#a69ca2") +
+  geom_rect(data = s1,
+            aes(xmin = 0, xmax = episode_duration_min,
+                ymin = rev(seq(-47, 43, 10)),
+                ymax = rev(seq(-43, 47, 10))),
+            fill = "#a69ca2") +
   coord_fixed() +
   xlim(-100, 200) +
   ylim(-50, 50) +
