@@ -23,7 +23,7 @@ library(ggforce)
 ggplot() +
   geom_circle(aes(x0 = 100, y0 = 25, r = 25)) +
   geom_segment(aes(x = 0, xend = 50, y = seq(5, 45, 4), yend = seq(5, 45, 4))) +
-  # geom_arc(aes(x0 = 15, y0 = 15, r = 5, start = -12, end = -11)) +
+  geom_arc(aes(x0 = 0, y0 = 45, r = 5, start = -150, end = 0)) +
   # geom_segment(aes(x = 0, xend = 5, y = 0, yend = 5)) +
   # geom_arc(aes(x0 = 15, y0 = 15, r = 4, start = 0, end = 2)) +
   # geom_arc(aes(x0 = 15, y0 = 15, r = 6, start = 0, end = 3)) +
@@ -34,7 +34,7 @@ ggplot() +
   # geom_arc(aes(x0 = 15, y0 = 15, r = 11, start = 0, end = 3)) +
   # geom_arc(aes(x0 = 15, y0 = 15, r = 12, start = 0, end = 3)) +
   # geom_arc(aes(x0 = 15, y0 = 15, r = 13, start = 0, end = 3)) +
-  xlim(c(0, 100)) +
+  xlim(c(-100, 100)) +
   ylim(c(0, 50)) +
   coord_fixed()
 
