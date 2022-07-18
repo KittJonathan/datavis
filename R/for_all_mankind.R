@@ -16,6 +16,31 @@ font_add_google(name = "Zen Tokyo Zoo", family = "zen_tokyo")
 font_add_google(name = "Tourney", family = "tourney")
 showtext_auto()
 
+# Tests ----
+
+library(ggforce)
+
+ggplot() +
+  geom_circle(aes(x0 = 5, y0 = 5, r = 3)) +
+  geom_arc(aes(x0 = 5, y0 = 5, r = 5, start = 0, end = 1)) +
+  geom_arc(aes(x0 = 5, y0 = 5, r = 4, start = 0, end = 2)) +
+  xlim(c(0, 10)) +
+  ylim(c(0, 10)) +
+  coord_fixed()
+
+p + p
+
+arcs <- data.frame(
+  start = 0,
+  end = runif(5) * 2*pi,
+  r = seq_len(5)
+)
+
+p <- ggplot() + theme_no_axes() + coord_fixed()
+
+p + geom_arc(aes(x0 = 0, y0 = 0, r = r, start = start, end = end, 
+                 alpha = ..index.., colour = factor(r)), data = arcs)
+
 # Create dataset ----
 
 # https://www.imdb.com/title/tt7772588/episodes
@@ -34,7 +59,7 @@ d1 <- tibble(
                            57, 62, 61, 52, 63, 61, 57, rep(NA, 3)),
   imdb_rating = c(7.5, 7.6, 8.0, 7.9, 8.5, 7.7, 8.0, 8.2, 8.8, 8.9,
                   7.9, 7.3, 8.0, 7.6, 7.4, 7.7, 7.7, 7.9, 8.7, 9.5, 
-                  8.5, 8.5, 8.1, 8.9, 8.3, 8.2, rep(NA, 4))) %>% 
+                  8.5, 8.5, 8.1, 8.9, 8.2, 6.9, rep(NA, 4))) %>% 
   mutate(label = paste0(episode_nb, " - ", episode_title)) 
   
 
