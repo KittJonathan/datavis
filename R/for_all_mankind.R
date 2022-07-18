@@ -21,19 +21,21 @@ showtext_auto()
 library(ggforce)
 
 ggplot() +
-  geom_circle(aes(x0 = 15, y0 = 15, r = 3)) +
-  geom_arc(aes(x0 = 15, y0 = 15, r = 5, start = 0, end = 1)) +
-  geom_arc(aes(x0 = 15, y0 = 15, r = 4, start = 0, end = 2)) +
-  geom_arc(aes(x0 = 15, y0 = 15, r = 6, start = 0, end = 3)) +
-  geom_arc(aes(x0 = 15, y0 = 15, r = 7, start = 0, end = 3)) +
-  geom_arc(aes(x0 = 15, y0 = 15, r = 8, start = 0, end = 3)) +
-  geom_arc(aes(x0 = 15, y0 = 15, r = 9, start = 0, end = 3)) +
-  geom_arc(aes(x0 = 15, y0 = 15, r = 10, start = 0, end = 3)) +
-  geom_arc(aes(x0 = 15, y0 = 15, r = 11, start = 0, end = 3)) +
-  geom_arc(aes(x0 = 15, y0 = 15, r = 12, start = 0, end = 3)) +
-  geom_arc(aes(x0 = 15, y0 = 15, r = 13, start = 0, end = 3)) +
-  xlim(c(0, 30)) +
-  ylim(c(0, 30)) +
+  geom_circle(aes(x0 = 85, y0 = 25, r = 10)) +
+  geom_segment(aes(x = 0, xend = 50, y = seq(15, 35, 2), yend = seq(15, 35, 2))) +
+  # geom_arc(aes(x0 = 15, y0 = 15, r = 5, start = -12, end = -11)) +
+  # geom_segment(aes(x = 0, xend = 5, y = 0, yend = 5)) +
+  # geom_arc(aes(x0 = 15, y0 = 15, r = 4, start = 0, end = 2)) +
+  # geom_arc(aes(x0 = 15, y0 = 15, r = 6, start = 0, end = 3)) +
+  # geom_arc(aes(x0 = 15, y0 = 15, r = 7, start = 0, end = 3)) +
+  # geom_arc(aes(x0 = 15, y0 = 15, r = 8, start = 0, end = 3)) +
+  # geom_arc(aes(x0 = 15, y0 = 15, r = 9, start = 0, end = 3)) +
+  # geom_arc(aes(x0 = 15, y0 = 15, r = 10, start = 0, end = 3)) +
+  # geom_arc(aes(x0 = 15, y0 = 15, r = 11, start = 0, end = 3)) +
+  # geom_arc(aes(x0 = 15, y0 = 15, r = 12, start = 0, end = 3)) +
+  # geom_arc(aes(x0 = 15, y0 = 15, r = 13, start = 0, end = 3)) +
+  xlim(c(0, 100)) +
+  ylim(c(0, 50)) +
   coord_fixed()
 
 p + p
