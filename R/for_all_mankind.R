@@ -21,6 +21,25 @@ showtext_auto()
 library(ggforce)
 
 ggplot() +
+  geom_circle(aes(x0 = -75, y0 = 0, r = 25),
+              fill = "#d5f2f2", colour = NA, size = 2) +
+  coord_fixed() +
+  xlim(-100, 200) +
+  ylim(-50, 50) +
+  theme(panel.background = element_rect(fill = "#0d0d0d"))
+
+fill = "#d5f2f2", alpha = 0.5) +
+  geom_text(mapping = aes(x = episode_duration_min + 1, y = episode_nb,
+                          label = paste0(episode_duration_min, " min")),
+            family = "orbitron", hjust = 0, colour = "white", size = 15) +
+  annotate(geom = "text", x = 85, y = 5.5, label = "SEASON     2", family = "monoton", colour = "#d5f2f2", size = 35, alpha = 0.75) +
+  scale_y_reverse() +
+  xlim(c(0, 100)) +
+  theme_void() +
+  theme(panel.background = element_rect(fill = "#30588c"),
+        plot.background = element_rect(fill = "#30588c"))
+
+p <- ggplot() +
   geom_circle(aes(x0 = -75, y0 = 0, r = 25)) +
   geom_circle(aes(x0 = 200, y0 = 0, r = 10)) +
   geom_segment(data = s1,
